@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Additional custom styles for the profile */
+        body {
+            padding-top: 50px;
+            background-color: #f8f9fa;
+        }
+        .profile-container {
+            margin-top: 50px; /* Adjust the margin as needed */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .profile-pic {
+            max-width: 100px;
+            height: auto;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .square-post-pic {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid px-0"> <!-- Set container-fluid to occupy full width -->
+        <div class="row mx-0">
+            <div class="col-md-8 offset-md-2 px-0">
+                <div class="profile-container py-4 px-4">
+                    <h3 class="mb-4 text-center">User Profile</h3>
+                    <p><strong>Username:</strong> {{ user }}</p>
+                    <p><strong>Name:</strong> {{ profile.name }}</p>
+                    <p><strong>About:</strong> {{ profile.about }}</p>
+                    <p><strong>Date of Birth:</strong> {{ profile.DOB }}</p>
+                    <p><strong>Posts:</strong> {{ numberOfPosts }}</p>
+                    <img src="{{ profile.profilePic.url }}" alt="Profile Picture" class="profile-pic mx-auto d-block">
+                    <hr>
+
+                    <h3 class="mb-4 text-center">Posts</h3>
+                    {% for post in userposts %}
+                    <div class="mb-3">
+                        <img src="{{ post.image.url }}" alt="Post Picture" class="square-post-pic mx-auto d-block">
+                        <p>{{ post.caption }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="profile-actions text-center mt-3">
+                    <a href="{% url 'mylogout' %}" class="btn btn-danger">Logout</a>
+                    <a href="{% url 'editprofile' user.profile.user %}" class="btn btn-primary">Edit Profile</a>
+                    <a href="{% url 'addpost' %}" class="btn btn-success">Add Post</a>
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
